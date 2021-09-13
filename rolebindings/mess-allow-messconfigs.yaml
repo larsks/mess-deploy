@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: mess-allow-messconfigs
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: mess-allow-messconfigs
+subjects:
+- kind: ServiceAccount
+  name: mess

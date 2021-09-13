@@ -1,0 +1,16 @@
+apiVersion: mess.massopen.cloud/v1
+kind: MessConfig
+metadata:
+  name: messconfig003
+type: Opaque
+spec:
+  updatePolicy: ifNewerAndChanged
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  files:
+    - path: /etc/flagfile
+      mode: '0644'
+      user: root
+      group: root
+      contents: |
+        This is a test.

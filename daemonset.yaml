@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: mess
+spec:
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      name: mess
+    spec:
+      containers:
+        - image: docker.io/python:3.9
+          command:
+            - sleep
+            - inf
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+          name: mess
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /rootfs
+              name: rootfs
+      restartPolicy: Always
+      serviceAccountName: mess
+      volumes:
+        - hostPath:
+            path: /
+            type: ''
+          name: rootfs

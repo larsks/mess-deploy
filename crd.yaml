@@ -1,0 +1,79 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: messconfigs.mess.massopen.cloud
+spec:
+  group: mess.massopen.cloud
+  scope: Namespaced
+  names:
+    plural: messconfigs
+    singular: messconfig
+    kind: MessConfig
+    shortNames: []
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              requires:
+                - files
+              properties:
+                updatePolicy:
+                  type: string
+                  enum:
+                    - always
+                    - ifNewer
+                    - ifChanged
+                    - ifNewerAndChanged
+                nodeSelector:
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
+                files:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - path
+                      - mode
+                      - user
+                      - group
+                    oneOf:
+                      - required:
+                          - contents
+                      - required:
+                          - secretKeyRef
+                      - required:
+                          - configMapKeyRef
+                    properties:
+                      path:
+                        type: string
+                        pattern: '^/.*'
+                      overwrite:
+                        type: boolean
+                      mode:
+                        x-kubernetes-int-or-string: true
+                      user:
+                        x-kubernetes-int-or-string: true
+                      group:
+                        x-kubernetes-int-or-string: true
+                      contents:
+                        type: string
+                      secretKeyRef:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          key:
+                            type: string
+                      configMapKeyRef:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          key:
+                            type: string
