@@ -8,10 +8,8 @@ resources:
 - ./daemonset.yaml
 - ./clusterrolebindings/mess-allow-nodes-rb.yaml
 - ./clusterroles/mess-allow-nodes.yaml
-- ./roles/mess-allow-secrets.yaml
-- ./roles/mess-allow-messconfigs.yaml
+- ./roles/mess-controller.yaml
 - ./serviceaccount.yaml
 - ./rolebindings/mess-allow-privileged.yaml
-- ./rolebindings/mess-allow-secrets.yaml
-- ./rolebindings/mess-allow-messconfigs.yaml
+- ./rolebindings/mess-controller.yaml
 - ./crd.yaml
