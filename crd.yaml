@@ -17,6 +17,8 @@ spec:
       schema:
         openAPIV3Schema:
           type: object
+          subresources:
+            status: {}
           properties:
             spec:
               type: object
@@ -77,3 +79,13 @@ spec:
                             type: string
                           key:
                             type: string
+            status:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      status:
+                        type: string
